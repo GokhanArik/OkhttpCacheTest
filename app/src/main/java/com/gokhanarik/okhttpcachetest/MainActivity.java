@@ -49,10 +49,12 @@ public class MainActivity extends AppCompatActivity {
         image = (ImageView) findViewById(R.id.image);
         logs = (TextView) findViewById(R.id.result);
 
+        final String url1 = "https://frozen-shore-44150.herokuapp.com/image";
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                picasso.load("http://graph.facebook.com/1464090949/picture?type=large")
+                picasso.load(url1)
                         .into(image);
             }
         });
@@ -91,18 +93,18 @@ public class MainActivity extends AppCompatActivity {
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 .cache(new Cache(cache, Math.max(Math.min(size, MAX_DISK_CACHE_SIZE), MIN_DISK_CACHE_SIZE)));
 
+
         if (BuildConfig.DEBUG) {
             builder.addInterceptor(LOGGING_INTERCEPTOR);
         }
 
         OkHttpClient client = builder.build();
         picasso = new Picasso.Builder(this)
-                //.indicatorsEnabled(true)
+                .indicatorsEnabled(true)
                 .loggingEnabled(true)
                 .downloader(new OkHttp3Downloader(client))
                 .build();
 
-        picasso.setIndicatorsEnabled(true);
     }
 
 
